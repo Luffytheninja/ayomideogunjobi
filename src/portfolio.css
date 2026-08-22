@@ -568,6 +568,10 @@ a, button {
   width: fit-content;
   position: relative;
   outline: none;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .work-item-name {

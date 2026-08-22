@@ -196,7 +196,7 @@ export default function CubeContainer({
     return () => window.removeEventListener('wheel', handleWheel);
   }, [executeTransition]);
 
-  // Touch Gesture Controller
+  // Touch Gesture Controller with robust Tap-vs-Swipe Disambiguation
   useEffect(() => {
     const handleTouchStart = (e) => {
       const touch = e.touches[0];
@@ -211,12 +211,18 @@ export default function CubeContainer({
         atBottom = !isScrollable || scrollTop + clientHeight >= scrollHeight - 8;
       }
 
+      // Check if touch originated on an interactive element (card, button, link, etc.)
+      const isInteractive = Boolean(
+        e.target && e.target.closest && e.target.closest('button, a, .work-item, [role="button"], input, textarea, select, .clear-filter-btn')
+      );
+
       touchStartRef.current = {
         x: touch.clientX,
         y: touch.clientY,
         time: Date.now(),
         atTop,
-        atBottom
+        atBottom,
+        isInteractive
       };
     };
 
@@ -228,15 +234,40 @@ export default function CubeContainer({
       const deltaY = touch.clientY - touchStartRef.current.y;
       const deltaX = touch.clientX - touchStartRef.current.x;
       const deltaTime = now - touchStartRef.current.time;
+      const totalDistance = Math.hypot(deltaX, deltaY);
 
-      if (Math.abs(deltaY) > 80 && Math.abs(deltaY) > Math.abs(deltaX) * 1.4 && deltaTime < 500) {
-        if (deltaY < 0 && touchStartRef.current.atBottom) {
-          // Swiped Up at bottom -> Next Face
-          executeTransition(currentFaceRef.current + 1, 'next');
-        } else if (deltaY > 0 && touchStartRef.current.atTop) {
-          // Swiped Down at top -> Previous Face
-          executeTransition(currentFaceRef.current - 1, 'prev');
-        }
+      // Disambiguation 1: If touch began on an interactive item and total movement is small (< 25px),
+      // it's a tap/click. Do NOT trigger a cube transition.
+      if (touchStartRef.current.isInteractive && totalDistance < 25) {
+        return;
+      }
+
+      // Disambiguation 2: Require clear vertical swipe intent:
+      // - Must move vertically by at least 90px (or 130px if originated on an interactive item)
+      // - Must have vertical dominance (|deltaY| > |deltaX| * 1.5)
+      // - Must be completed within 450ms (a brisk swipe gesture, not a slow drag)
+      const minDistance = touchStartRef.current.isInteractive ? 130 : 90;
+      const isVerticalSwipe = Math.abs(deltaY) >= minDistance && 
+                              Math.abs(deltaY) > Math.abs(deltaX) * 1.5 && 
+                              deltaTime < 450;
+
+      if (!isVerticalSwipe) return;
+
+      const activeEl = faceRefs[currentFaceRef.current]?.current;
+      if (!activeEl) return;
+
+      const { scrollTop, scrollHeight, clientHeight } = activeEl;
+      const isScrollable = scrollHeight > clientHeight + 8;
+      const isCurrentlyAtBottom = !isScrollable || (scrollTop + clientHeight >= scrollHeight - 8);
+      const isCurrentlyAtTop = !isScrollable || (scrollTop <= 8);
+
+      // Double-verify boundary state at both start and end of gesture
+      if (deltaY < 0 && touchStartRef.current.atBottom && isCurrentlyAtBottom) {
+        // Swiped Up at bottom -> Next Face
+        executeTransition(currentFaceRef.current + 1, 'next');
+      } else if (deltaY > 0 && touchStartRef.current.atTop && isCurrentlyAtTop) {
+        // Swiped Down at top -> Previous Face
+        executeTransition(currentFaceRef.current - 1, 'prev');
       }
     };
 
