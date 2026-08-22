@@ -291,9 +291,9 @@ export default function CubeContainer({
     <div className="cube-scene" ref={containerRef}>
       {/* 3D Animated Cube World */}
       <div 
-        className={`cube-box ${!isTransitioning ? 'is-idle' : ''}`}
+        className="cube-box"
         style={{
-          transform: isTransitioning ? `translateZ(-50vh) rotateX(${rotationAngle}deg)` : undefined
+          transform: `translateZ(-50vh) rotateX(${rotationAngle}deg)`
         }}
       >
         {/* Face 0: Hero (Page 1) */}
