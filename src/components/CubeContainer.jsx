@@ -71,13 +71,11 @@ export default function CubeContainer({
       stepDelta = diff;
     }
 
-    // KEY FIX: When is-idle, the CSS transform is `none` (0°) — the cube box has no
-    // 3D rotation applied. The accumulated rotationAngleRef value is out of sync with
-    // the actual rendered state. We must derive the canonical start angle from the
-    // current face index (0→0°, 1→90°, 2→180°, 3→270°) so every transition always
-    // animates exactly one clean 90° quarter-turn — no multi-spin possible.
-    const canonicalStartAngle = currentNorm * 90;
-    const nextAngle = canonicalStartAngle + stepDelta * 90;
+    // The cube-box now always holds its true 3D rotation angle (it is never reset
+    // to 0° by is-idle). rotationAngleRef.current is always in sync with the
+    // actual CSS transform, so we can safely accumulate from it — exactly one
+    // clean 90° quarter-turn every time.
+    const nextAngle = rotationAngleRef.current + stepDelta * 90;
     rotationAngleRef.current = nextAngle;
     setRotationAngle(nextAngle);
     currentFaceRef.current = normalizedTarget;
@@ -295,15 +293,17 @@ export default function CubeContainer({
 
   return (
     <div className="cube-scene" ref={containerRef}>
-      {/* 3D Animated Cube World */}
+      {/* 3D Animated Cube World — cube-box always holds its correct 3D rotation.
+          The active face is promoted out to position:fixed when idle so it
+          renders as a normal flat element with full pointer events and scroll. */}
       <div 
-        className={`cube-box ${!isTransitioning ? 'is-idle' : ''}`}
+        className={`cube-box ${isTransitioning ? 'is-transitioning' : ''}`}
         style={{
-          transform: isTransitioning ? `translateZ(-50vh) rotateX(${rotationAngle}deg)` : undefined
+          transform: `translateZ(-50vh) rotateX(${rotationAngle}deg)`
         }}
       >
         {/* Face 0: Hero (Page 1) */}
-        <div className={`cube-face face-front ${currentFace === 0 ? 'face-active' : ''}`}>
+        <div className={`cube-face face-front ${currentFace === 0 ? 'face-active' : ''} ${currentFace === 0 && !isTransitioning ? 'face-promoted' : ''}`}>
           <div 
             className="cube-face-scroll"
             ref={faceRefs[0]}
@@ -317,7 +317,7 @@ export default function CubeContainer({
         </div>
 
         {/* Face 1: Works (Page 2) */}
-        <div className={`cube-face face-bottom ${currentFace === 1 ? 'face-active' : ''}`}>
+        <div className={`cube-face face-bottom ${currentFace === 1 ? 'face-active' : ''} ${currentFace === 1 && !isTransitioning ? 'face-promoted' : ''}`}>
           <div 
             className="cube-face-scroll"
             ref={faceRefs[1]}
@@ -333,7 +333,7 @@ export default function CubeContainer({
         </div>
 
         {/* Face 2: About Me (Page 3) */}
-        <div className={`cube-face face-back ${currentFace === 2 ? 'face-active' : ''}`}>
+        <div className={`cube-face face-back ${currentFace === 2 ? 'face-active' : ''} ${currentFace === 2 && !isTransitioning ? 'face-promoted' : ''}`}>
           <div 
             className="cube-face-scroll"
             ref={faceRefs[2]}
@@ -347,7 +347,7 @@ export default function CubeContainer({
         </div>
 
         {/* Face 3: Contact (Page 4) */}
-        <div className={`cube-face face-top ${currentFace === 3 ? 'face-active' : ''}`}>
+        <div className={`cube-face face-top ${currentFace === 3 ? 'face-active' : ''} ${currentFace === 3 && !isTransitioning ? 'face-promoted' : ''}`}>
           <div 
             className="cube-face-scroll"
             ref={faceRefs[3]}
