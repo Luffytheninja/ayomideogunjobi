@@ -271,6 +271,27 @@ a, button {
   pointer-events: none !important;
 }
 
+/* When stationary: active face is rendered cleanly without 3D hit-test blocking.
+   The cube-box transform is set to none so the active face is a normal flat div.
+   This is essential for pointer events and scrolling to work correctly. */
+.cube-box.is-idle {
+  transform: none !important;
+  transition: none !important;
+}
+
+.cube-box.is-idle .cube-face {
+  display: none !important;
+  pointer-events: none !important;
+}
+
+.cube-box.is-idle .cube-face.face-active {
+  display: block !important;
+  transform: none !important;
+  pointer-events: auto !important;
+  z-index: 10 !important;
+}
+
+
 /* 4-Face Cube Geometry around the X-axis */
 .face-front {
   transform: rotateX(0deg) translateZ(var(--cube-depth));

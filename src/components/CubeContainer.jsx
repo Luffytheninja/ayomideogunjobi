@@ -71,7 +71,13 @@ export default function CubeContainer({
       stepDelta = diff;
     }
 
-    const nextAngle = rotationAngleRef.current + stepDelta * 90;
+    // KEY FIX: When is-idle, the CSS transform is `none` (0°) — the cube box has no
+    // 3D rotation applied. The accumulated rotationAngleRef value is out of sync with
+    // the actual rendered state. We must derive the canonical start angle from the
+    // current face index (0→0°, 1→90°, 2→180°, 3→270°) so every transition always
+    // animates exactly one clean 90° quarter-turn — no multi-spin possible.
+    const canonicalStartAngle = currentNorm * 90;
+    const nextAngle = canonicalStartAngle + stepDelta * 90;
     rotationAngleRef.current = nextAngle;
     setRotationAngle(nextAngle);
     currentFaceRef.current = normalizedTarget;
@@ -291,9 +297,9 @@ export default function CubeContainer({
     <div className="cube-scene" ref={containerRef}>
       {/* 3D Animated Cube World */}
       <div 
-        className="cube-box"
+        className={`cube-box ${!isTransitioning ? 'is-idle' : ''}`}
         style={{
-          transform: `translateZ(-50vh) rotateX(${rotationAngle}deg)`
+          transform: isTransitioning ? `translateZ(-50vh) rotateX(${rotationAngle}deg)` : undefined
         }}
       >
         {/* Face 0: Hero (Page 1) */}
