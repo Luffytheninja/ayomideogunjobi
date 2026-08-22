@@ -1,13 +1,21 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 export default function MediaLightboxModal({ isOpen, onClose, media = [], initialIndex = 0, title = '' }) {
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
   const [isZoomed, setIsZoomed] = useState(false);
+  const closeBtnRef = useRef(null);
 
   useEffect(() => {
     setCurrentIndex(initialIndex);
     setIsZoomed(false);
   }, [initialIndex, isOpen]);
+
+  // Focus close button on modal open
+  useEffect(() => {
+    if (isOpen && closeBtnRef.current) {
+      closeBtnRef.current.focus();
+    }
+  }, [isOpen]);
 
   // Keyboard navigation: Escape to close, Arrow keys to navigate
   useEffect(() => {
@@ -83,6 +91,7 @@ export default function MediaLightboxModal({ isOpen, onClose, media = [], initia
           )}
 
           <button 
+            ref={closeBtnRef}
             type="button" 
             className="cs-lightbox-close-btn"
             onClick={onClose}

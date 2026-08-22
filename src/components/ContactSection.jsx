@@ -181,9 +181,12 @@ export default function ContactSection({ onNotify }) {
               href="mailto:ayomide.gunjob@gmail.com"
               className="contact-link"
               onClick={() => {
-                if (navigator.clipboard) {
-                  navigator.clipboard.writeText('ayomide.gunjob@gmail.com');
-                  if (onNotify) onNotify('Copied email to clipboard');
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                  navigator.clipboard.writeText('ayomide.gunjob@gmail.com')
+                    .then(() => {
+                      if (onNotify) onNotify('Copied email to clipboard');
+                    })
+                    .catch(() => {});
                 }
               }}
             >

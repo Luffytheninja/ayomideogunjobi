@@ -1,6 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 export default function PdfViewerModal({ isOpen, onClose }) {
+  const closeBtnRef = useRef(null);
+
+  // Focus close button on open
+  useEffect(() => {
+    if (isOpen && closeBtnRef.current) {
+      closeBtnRef.current.focus();
+    }
+  }, [isOpen]);
+
   // Support Escape key to close
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -56,6 +65,7 @@ export default function PdfViewerModal({ isOpen, onClose }) {
 
             {/* Close Button */}
             <button
+              ref={closeBtnRef}
               type="button"
               className="pdf-modal-close-btn"
               onClick={onClose}

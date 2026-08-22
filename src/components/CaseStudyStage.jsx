@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 function useFadeInOnScroll() {
   const ref = useRef(null);
@@ -6,6 +6,11 @@ function useFadeInOnScroll() {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+
+    if (!('IntersectionObserver' in window)) {
+      el.classList.add('media-visible');
+      return;
+    }
 
     const observer = new IntersectionObserver(
       ([entry]) => {

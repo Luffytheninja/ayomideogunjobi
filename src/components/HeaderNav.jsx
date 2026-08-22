@@ -1,7 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function HeaderNav({ activeFace, onNavigate, isCaseStudy, onBackToWorks }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  // Close drawer on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape' && mobileMenuOpen) {
+        setMobileMenuOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [mobileMenuOpen]);
 
   const handleLogoClick = (e) => {
     e.preventDefault();
@@ -110,8 +121,15 @@ export default function HeaderNav({ activeFace, onNavigate, isCaseStudy, onBackT
       <div 
         className={`mobile-nav-overlay ${mobileMenuOpen ? 'is-open' : ''}`}
         onClick={() => setMobileMenuOpen(false)}
+        aria-hidden={!mobileMenuOpen}
       >
-        <div className="mobile-nav-drawer" onClick={(e) => e.stopPropagation()}>
+        <div 
+          className="mobile-nav-drawer" 
+          onClick={(e) => e.stopPropagation()}
+          role="dialog"
+          aria-modal={mobileMenuOpen ? "true" : "false"}
+          aria-label="Mobile Navigation"
+        >
           <div className="mobile-nav-drawer-header">
             <span className="brand-logo-mobile-box small">
               <img src="/favicons/favicon-gb.png" alt="Ayo Logo" className="brand-logo-mobile-icon" />

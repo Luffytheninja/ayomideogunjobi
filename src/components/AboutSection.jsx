@@ -23,7 +23,7 @@ export default function AboutSection({ onOpenResume, onNotify }) {
         {/* Left Column: Portrait */}
         <div className="about-image-column">
           <div 
-            className="about-image-container parallax-layer"
+            className="about-image-container"
             style={{
               transform: `translate3d(${imgOffset.x * 0.7}px, ${imgOffset.y * 0.7}px, 0)`
             }}
@@ -67,6 +67,7 @@ export default function AboutSection({ onOpenResume, onNotify }) {
                 onClick={onOpenResume}
                 className="meta-view-btn"
                 title="Open and view CV PDF"
+                aria-label="View Ayomide Ogunjobi Curriculum Vitae"
               >
                 <div>
                   <span>View C.V →</span>

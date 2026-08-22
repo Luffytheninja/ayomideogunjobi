@@ -56,7 +56,7 @@ export default function CubeContainer({
 
     setIsTransitioning(true);
     isTransitioningRef.current = true;
-    transitionCooldownRef.current = Date.now() + 1000;
+    transitionCooldownRef.current = Date.now() + 1150;
 
     let stepDelta = 0;
     if (direction === 'next') {
@@ -71,10 +71,6 @@ export default function CubeContainer({
       stepDelta = diff;
     }
 
-    // The cube-box now always holds its true 3D rotation angle (it is never reset
-    // to 0° by is-idle). rotationAngleRef.current is always in sync with the
-    // actual CSS transform, so we can safely accumulate from it — exactly one
-    // clean 90° quarter-turn every time.
     const nextAngle = rotationAngleRef.current + stepDelta * 90;
     rotationAngleRef.current = nextAngle;
     setRotationAngle(nextAngle);
@@ -110,7 +106,7 @@ export default function CubeContainer({
           executeTransition(queuedTarget);
         }
       }
-    }, 850);
+    }, 1000);
   }, [onNavigateFace, setActiveFace]);
 
   // Synchronize when activeFace prop changes from HeaderNav or Hash Router
@@ -324,17 +320,16 @@ export default function CubeContainer({
 
   return (
     <div className="cube-scene" ref={containerRef}>
-      {/* 3D Animated Cube World — cube-box always holds its correct 3D rotation.
-          The active face is promoted out to position:fixed when idle so it
-          renders as a normal flat element with full pointer events and scroll. */}
+      {/* 3D Animated Cube World — active during 3D rotation */}
       <div 
-        className={`cube-box ${isTransitioning ? 'is-transitioning' : ''}`}
+        className={`cube-box ${isTransitioning ? 'is-transitioning' : 'is-idle'}`}
         style={{
           transform: `translateZ(-50vh) rotateX(${rotationAngle}deg)`
         }}
+        aria-hidden={!isTransitioning}
       >
         {/* Face 0: Hero (Page 1) */}
-        <div className={`cube-face face-front ${currentFace === 0 ? 'face-active' : ''} ${currentFace === 0 && !isTransitioning ? 'face-promoted' : ''}`}>
+        <div className={`cube-face face-front ${currentFace === 0 ? 'face-active' : ''}`}>
           <div 
             className="cube-face-scroll"
             ref={faceRefs[0]}
@@ -348,7 +343,7 @@ export default function CubeContainer({
         </div>
 
         {/* Face 1: Works (Page 2) */}
-        <div className={`cube-face face-bottom ${currentFace === 1 ? 'face-active' : ''} ${currentFace === 1 && !isTransitioning ? 'face-promoted' : ''}`}>
+        <div className={`cube-face face-bottom ${currentFace === 1 ? 'face-active' : ''}`}>
           <div 
             className="cube-face-scroll"
             ref={faceRefs[1]}
@@ -364,7 +359,7 @@ export default function CubeContainer({
         </div>
 
         {/* Face 2: About Me (Page 3) */}
-        <div className={`cube-face face-back ${currentFace === 2 ? 'face-active' : ''} ${currentFace === 2 && !isTransitioning ? 'face-promoted' : ''}`}>
+        <div className={`cube-face face-back ${currentFace === 2 ? 'face-active' : ''}`}>
           <div 
             className="cube-face-scroll"
             ref={faceRefs[2]}
@@ -378,7 +373,7 @@ export default function CubeContainer({
         </div>
 
         {/* Face 3: Contact (Page 4) */}
-        <div className={`cube-face face-top ${currentFace === 3 ? 'face-active' : ''} ${currentFace === 3 && !isTransitioning ? 'face-promoted' : ''}`}>
+        <div className={`cube-face face-top ${currentFace === 3 ? 'face-active' : ''}`}>
           <div 
             className="cube-face-scroll"
             ref={faceRefs[3]}
@@ -388,6 +383,41 @@ export default function CubeContainer({
           </div>
         </div>
       </div>
+
+      {/* Flat Interactive Active View when Idle: 100% reliable 2D button clicks, links, and scrolling */}
+      {!isTransitioning && (
+        <div className="cube-flat-active-view">
+          <div 
+            className="cube-face-scroll"
+            ref={faceRefs[currentFace]}
+            onScroll={handleScroll(currentFace)}
+          >
+            {currentFace === 0 && (
+              <HeroSection 
+                onSelectCategory={handleHeroCategorySelect} 
+                onNotify={onNotify}
+              />
+            )}
+            {currentFace === 1 && (
+              <WorksSection 
+                filter={worksFilter}
+                onClearFilter={() => setWorksFilter && setWorksFilter('ALL')}
+                onSelectProject={onSelectProject}
+                onNotify={onNotify}
+              />
+            )}
+            {currentFace === 2 && (
+              <AboutSection 
+                onOpenResume={onOpenResume}
+                onNotify={onNotify}
+              />
+            )}
+            {currentFace === 3 && (
+              <ContactSection onNotify={onNotify} />
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

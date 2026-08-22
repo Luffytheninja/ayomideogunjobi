@@ -73,7 +73,6 @@ export const caseStudies = [
     media: [
       { src: "/works/ountodun/ountodun.png", type: "image" },
       { src: "/works/ountodun/OUTD cover.webp", type: "image" },
-      { src: "/works/ountodun/luffy.png", type: "image" },
       { src: "/works/ountodun/TXF.webp", type: "image" },
       { src: "/works/ountodun/SMT.webp", type: "image" },
       { src: "/works/ountodun/M.webp", type: "image" },

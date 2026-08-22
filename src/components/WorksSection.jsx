@@ -18,7 +18,22 @@ export default function WorksSection({ filter = 'ALL', onClearFilter, onSelectPr
     || caseStudies[0];
 
   const handleMouseMove = (e) => {
-    setMousePos({ x: e.clientX, y: e.clientY });
+    const previewWidth = 250;
+    const previewHeight = 170;
+    let x = e.clientX + 24;
+    let y = e.clientY - 80;
+    if (typeof window !== 'undefined') {
+      if (x + previewWidth > window.innerWidth) {
+        x = e.clientX - previewWidth - 24;
+      }
+      if (y + previewHeight > window.innerHeight) {
+        y = window.innerHeight - previewHeight - 16;
+      }
+      if (y < 16) {
+        y = 16;
+      }
+    }
+    setMousePos({ x, y });
   };
 
   // Get preview image or video for the floating thumbnail
@@ -119,6 +134,7 @@ export default function WorksSection({ filter = 'ALL', onClearFilter, onSelectPr
                   type="button" 
                   className="meta-view-btn"
                   onClick={handleItemClick(activeProj?.id)}
+                  aria-label={`View ${activeProj?.name || 'project'} case study`}
                 >
                   <div>
                     <span>View Case Study →</span>
