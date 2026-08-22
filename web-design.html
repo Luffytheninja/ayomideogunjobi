@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Web Design — Luffy | Ayomide Ogunjobi</title>
+  <meta name="description" content="Web design projects by Ayomide Ogunjobi — Faem, A Century Flame, Coldstorm, Eoe, Masher." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;900&family=Mea+Culpa&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="service.css" />
+</head>
+<body>
+
+  <!-- Background layers (z-index order: static → video → image → vignette) -->
+  <div class="bg-static" aria-hidden="true"></div>
+  <video class="bg-video" id="bg-video"
+         src="projects/web-design/faem/faem-website.mp4"
+         loop muted playsinline aria-hidden="true"></video>
+  <div class="bg-image-overlay" id="bg-image-overlay" aria-hidden="true"></div>
+  <div class="bg-video-overlay" aria-hidden="true"></div>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-name">Ayomide Ogunjobi</div>
+    <ul class="nav-links">
+      <li><a href="index.html" id="nav-works">Works</a></li>
+      <li><a href="index.html#contact" id="nav-contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Back button -->
+  <a href="index.html" class="back-btn" id="back-btn">Back</a>
+
+  <!-- Animated PLAY indicator — top right, visible when video is running -->
+  <div class="play-indicator" id="play-indicator" aria-hidden="true">
+    <div class="play-dots">
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+    <span class="play-label">PLAY</span>
+  </div>
+
+  <!-- Main layout -->
+  <main class="service-main" id="service-main">
+
+    <!-- Left column: big headline + tagline + project tags -->
+    <div class="left-col">
+      <div class="headline" aria-label="Welcome to his universe">
+        <span class="hl">WELCOME TO</span>
+        <span class="hl">HIS UNIVERSE.</span>
+      </div>
+      <p class="tagline">Curated and crafted digital experiences<br>for the modern web.</p>
+      <nav class="project-tags" aria-label="Web design projects">
+        <a href="#" class="tag tag--active" id="tag-faem"
+           data-type="video" data-src="projects/web-design/faem/faem-website.mp4">Faem</a>
+        <a href="#" class="tag" id="tag-century"
+           data-type="video" data-src="projects/web-design/a-century-flame/a-century-flame-website.mp4">A Century Flame</a>
+        <a href="#" class="tag" id="tag-coldstorm"
+           data-type="video" data-src="projects/web-design/coldstorm/coldstorm-website.mp4">Coldstorm</a>
+        <a href="#" class="tag" id="tag-eoe"
+           data-type="video" data-src="projects/web-design/eoe/eoe-website.mp4">Eoe</a>
+        <a href="#" class="tag" id="tag-masher"
+           data-type="video" data-src="projects/web-design/masher/masher-website.mp4">Masher</a>
+      </nav>
+    </div>
+
+    <!-- Right column: description + decorative "W" script letter -->
+    <div class="right-col">
+      <p class="description">
+        Lorem ipsum dolor sit amet consectetur. Quis tortor elit egestas dui tellus.
+        Nam semper purus leo morbi consequat vitae vulputate proin ut. Aenean accumsan
+        egestas turpis lacinia nulla. Volutpat ut arcu dolor netus aliquet ornare euismod.
+      </p>
+      <div class="script-logo" aria-hidden="true">W</div>
+    </div>
+
+  </main>
+
+  <!-- Scroll hint -->
+  <div class="scroll-hint" aria-hidden="true">S C R O L L</div>
+
+  <!-- Footer -->
+  <footer class="footer" id="footer">
+    <p>All Rights Reserved</p>
+  </footer>
+
+  <!-- Cursor-following preview thumbnail -->
+  <div class="cursor-preview" id="cursor-preview" aria-hidden="true">
+    <img src="" alt="" style="display:none;" />
+    <video loop muted playsinline style="display:none;"></video>
+  </div>
+
+  <script>
+    (function () {
+      var tags     = document.querySelectorAll('.tag');
+      var bgVideo  = document.getElementById('bg-video');
+      var preview  = document.getElementById('cursor-preview');
+      var prevImg  = preview.querySelector('img');
+      var prevVid  = preview.querySelector('video');
+      var faemTag  = document.getElementById('tag-faem');
+
+      /* --- Activate a tag and update backgrounds / preview --- */
+      function activateTag(tag) {
+        tags.forEach(function (t) { t.classList.remove('tag--active'); });
+        tag.classList.add('tag--active');
+
+        var type = tag.dataset.type;
+        var src  = tag.dataset.src;
+
+        if (type === 'video' && src) {
+          /* Show video background */
+          document.body.classList.add('show-video');
+          document.body.classList.remove('show-image');
+          bgVideo.play().catch(function () {});
+
+          /* Cursor preview: video */
+          prevImg.style.display = 'none';
+          prevVid.style.display = 'block';
+          if (prevVid.src !== src) { prevVid.src = src; }
+          prevVid.play().catch(function () {});
+          preview.classList.add('visible');
+        } else {
+          /* No preview for this tag — show dark background */
+          document.body.classList.remove('show-video', 'show-image');
+          bgVideo.pause();
+          preview.classList.remove('visible');
+          prevVid.pause();
+        }
+      }
+
+      /* Default: Faem is active, video plays immediately */
+      if (faemTag) { activateTag(faemTag); }
+
+      tags.forEach(function (tag) {
+        tag.addEventListener('mouseenter', function () { activateTag(tag); });
+        tag.addEventListener('mouseleave', function () {
+          /* Return to default (Faem) when cursor leaves any tag */
+          if (faemTag) { activateTag(faemTag); }
+        });
+      });
+
+      /* Cursor-following preview */
+      document.addEventListener('mousemove', function (e) {
+        preview.style.left = e.clientX + 'px';
+        preview.style.top  = e.clientY + 'px';
+      });
+    }());
+  </script>
+
+</body>
+</html>

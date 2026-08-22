@@ -1,0 +1,328 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;900&family=Mea+Culpa&display=swap');
+
+/* ============================================
+   RESET & BASE
+   ============================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  color: #ffffff;
+  position: relative;
+  background: #000;
+}
+
+/* Visually hidden — accessible to screen readers only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ============================================
+   BACKGROUND
+   ============================================ */
+.bg-image {
+  position: fixed;
+  inset: 0;
+  background: url('projects/luffy.png') center center / cover no-repeat;
+  filter: grayscale(100%);
+  z-index: 0;
+}
+
+/* Gradient overlay: transparent on left, darkened on right for text legibility */
+.bg-overlay {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.08) 0%,
+    rgba(0, 0, 0, 0.08) 40%,
+    rgba(0, 0, 0, 0.55) 62%,
+    rgba(0, 0, 0, 0.65) 100%
+  );
+  z-index: 1;
+}
+
+/* ============================================
+   NAVIGATION
+   ============================================ */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 38px 60px;
+}
+
+.nav-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: #ffffff;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 48px;
+}
+
+.nav-links a {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  color: #ffffff;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  opacity: 0.92;
+  transition: opacity 0.2s ease;
+}
+
+.nav-links a:hover {
+  opacity: 1;
+}
+
+/* ============================================
+   MAIN CONTENT LAYOUT
+   ============================================ */
+.main-content {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding-top: 100px;
+  pointer-events: none;
+}
+
+/* ============================================
+   RIGHT COLUMN
+   ============================================ */
+.home-right-col {
+  width: 42%;
+  max-width: 520px;
+  padding-right: 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  pointer-events: all;
+}
+
+/* ============================================
+   ABOUT SECTION
+   ============================================ */
+.about-section {
+  margin-bottom: 40px;
+}
+
+.about-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+  text-align: right;
+  margin-bottom: 16px;
+}
+
+.about-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 12.5px;
+  font-weight: 300;
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.92);
+  text-align: right;
+}
+
+.about-text + .about-text {
+  margin-top: 1.25em;
+}
+
+/* ============================================
+   SERVICES SECTION
+   ============================================ */
+.services-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  align-items: flex-end;
+}
+
+.service-item {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(30px, 3.6vw, 44px);
+  font-weight: 400;
+  color: #ffffff;
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 6px;
+  letter-spacing: -0.01em;
+  line-height: 1.35;
+  display: block;
+  text-align: right;
+  transition: color 0.25s ease, text-shadow 0.25s ease;
+}
+
+.service-item:hover {
+  color: #00E553;
+  text-decoration-color: #00E553;
+}
+
+/* ============================================
+   LUFFY SCRIPT LOGO
+   ============================================ */
+.luffy-logo {
+  position: fixed;
+  bottom: 40px;
+  left: 60px;
+  z-index: 20;
+  font-family: 'Mea Culpa', cursive;
+  font-size: clamp(120px, 16vw, 220px);
+  color: #00E553;
+  line-height: 0.85;
+  pointer-events: none;
+  user-select: none;
+  /* Subtle text shadow for depth */
+  text-shadow:
+    0 0 60px rgba(0, 229, 83, 0.18),
+    0 0 120px rgba(0, 229, 83, 0.08);
+  /* Animate in */
+  animation: fadeInUp 1s ease forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+.footer {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: 50;
+  padding: 0 60px 24px 0;
+  pointer-events: none;
+}
+
+.footer p {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.75);
+  text-align: right;
+  letter-spacing: 0.02em;
+}
+
+/* ============================================
+   SCROLL HINT ANIMATION (navbar fade)
+   ============================================ */
+.navbar,
+.main-content,
+.footer {
+  animation: fadeIn 0.8s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ============================================
+   RESPONSIVE / MOBILE STYLES (Homepage)
+   ============================================ */
+@media (max-width: 900px) {
+  html, body {
+    overflow-y: auto;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .navbar {
+    padding: 24px 24px;
+  }
+
+  .nav-links {
+    gap: 24px;
+  }
+
+  .main-content {
+    position: relative;
+    padding-top: 100px;
+    padding-bottom: 80px;
+    justify-content: flex-start;
+    pointer-events: auto;
+  }
+
+  .home-right-col {
+    width: 100%;
+    max-width: 100%;
+    padding: 0 24px;
+    align-items: flex-start;
+  }
+
+  .about-title,
+  .about-text,
+  .service-item,
+  .footer p {
+    text-align: left;
+  }
+
+  .services-section {
+    align-items: flex-start;
+    width: 100%;
+    margin-top: 28px;
+  }
+
+  .service-item {
+    font-size: clamp(26px, 7vw, 36px);
+    margin-bottom: 8px;
+  }
+
+  .luffy-logo {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    margin: 40px 24px 20px 24px;
+    font-size: clamp(70px, 18vw, 130px);
+    display: block;
+  }
+
+  .footer {
+    position: relative;
+    padding: 24px;
+    bottom: auto;
+    right: auto;
+  }
+}
