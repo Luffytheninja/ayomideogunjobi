@@ -52,16 +52,6 @@ const HELLO_VARIANTS = [
     personality: 'Chunky / Poster'
   },
   {
-    name: 'sixtyfour-pixel',
-    fontFamily: "'Sixtyfour', cursive, monospace",
-    fontWeight: 400,
-    fontStyle: 'normal',
-    color: '#1c3e24', // Earth Green
-    letterSpacing: '-0.025em',
-    text: 'HELLO',
-    personality: 'Pixel / Sixtyfour'
-  },
-  {
     name: 'blackletter-gothic',
     fontFamily: "'UnifrakturMaguntia', cursive",
     fontWeight: 400,
