@@ -54,7 +54,9 @@ export default function CaseStudyStage({
         : 'museum';
 
   // Domain URL for browser mockups
-  const domainUrl = `${study?.id || 'project'}.design`;
+  const domainUrl = study?.website 
+    ? study.website.replace(/^https?:\/\//, '').replace(/\/$/, '')
+    : `${study?.id || 'project'}.design`;
 
   const handlePrev = (e) => {
     e.stopPropagation();

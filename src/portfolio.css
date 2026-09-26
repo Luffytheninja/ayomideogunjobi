@@ -1149,19 +1149,913 @@ button:focus-visible,
   font-size: clamp(16px, 1.3vw, 20px);
   line-height: 1.65;
   max-width: 960px;
-  margin: 40px 0;
+  margin: 28px 0;
   color: #111111;
 }
 
-.cs-media-fade {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.7s var(--ease-out-expo), transform 0.7s var(--ease-out-expo);
+.cs-header-subtitle {
+  font-size: clamp(18px, 1.8vw, 26px);
+  color: var(--text-secondary);
+  margin-top: 14px;
+  line-height: 1.4;
+  font-weight: 400;
+  max-width: 900px;
 }
 
-.cs-media-fade.media-visible {
-  opacity: 1;
-  transform: translateY(0);
+.cs-nav-badges {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cs-living-badge {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: #1c3e24;
+  color: #ffffff;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+/* ==========================================================================
+   LIVING CASE STUDY SECTIONS
+   ========================================================================== */
+.living-case-study-body {
+  width: 100%;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}
+
+.cs-section {
+  width: 100%;
+  position: relative;
+}
+
+.cs-section-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+  display: inline-block;
+  border-bottom: 2px solid #000000;
+  padding-bottom: 4px;
+}
+
+.cs-lead-paragraph {
+  font-size: clamp(18px, 1.6vw, 24px);
+  line-height: 1.55;
+  max-width: 1000px;
+  margin-bottom: 36px;
+  color: #000000;
+  font-weight: 400;
+}
+
+.cs-subheading {
+  font-size: clamp(18px, 1.6vw, 22px);
+  font-weight: 600;
+  margin-bottom: 18px;
+  letter-spacing: -0.01em;
+}
+
+/* 02. Role Cards & Quote */
+.cs-role-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-bottom: 30px;
+}
+
+.cs-role-card {
+  background: #f8f9fa;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.role-card-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.role-card-value {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111111;
+  line-height: 1.4;
+}
+
+.cs-quote-box {
+  background: #fdfdfd;
+  border-left: 3px solid #000000;
+  padding: 20px 24px;
+  font-size: clamp(15px, 1.2vw, 17px);
+  line-height: 1.6;
+  color: #222222;
+  font-style: italic;
+  margin: 24px 0;
+  border-radius: 0 8px 8px 0;
+}
+
+/* 03. Problem & Insights */
+.cs-insight-banner {
+  background: #111111;
+  color: #ffffff;
+  border-radius: 12px;
+  padding: 36px 40px;
+  margin-bottom: 24px;
+}
+
+.insight-tag {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #27c93f;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.insight-heading {
+  font-size: clamp(22px, 2.4vw, 36px);
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+.cs-friction-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  margin: 30px 0;
+}
+
+.friction-card {
+  background: #fff8f8;
+  border: 1px solid rgba(143, 24, 24, 0.15);
+  border-radius: 8px;
+  padding: 18px 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.friction-idx {
+  color: #8f1818;
+  font-weight: 800;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.friction-text {
+  font-size: 14px;
+  color: #333333;
+  line-height: 1.5;
+}
+
+.cs-challenge-box {
+  background: #f4f8f5;
+  border: 1px solid rgba(28, 62, 36, 0.2);
+  border-radius: 10px;
+  padding: 28px 32px;
+  margin-top: 24px;
+}
+
+.challenge-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #1c3e24;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.challenge-question {
+  font-size: clamp(17px, 1.4vw, 21px);
+  font-weight: 600;
+  color: #0e0e0e;
+  line-height: 1.4;
+}
+
+/* 04. Flow Strip & Systems Grid */
+.cs-flow-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 14px;
+  margin: 20px 0;
+}
+
+.flow-step-item {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 18px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+}
+
+.flow-step-num {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--text-muted);
+}
+
+.flow-step-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #000000;
+}
+
+.flow-step-desc {
+  font-size: 12px;
+  color: #666666;
+  line-height: 1.4;
+}
+
+.cs-systems-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.system-pill {
+  background: #f0f2f5;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #333333;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.system-dot {
+  font-size: 8px;
+  color: #1c3e24;
+}
+
+/* 05. Lessons Grid */
+.cs-lessons-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-top: 24px;
+}
+
+.lesson-card {
+  background: #fdfdfd;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 10px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.lesson-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+}
+
+.lesson-badge {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #8f1818;
+  letter-spacing: 0.06em;
+}
+
+.lesson-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111111;
+  line-height: 1.35;
+}
+
+.lesson-desc {
+  font-size: 13.5px;
+  color: #555555;
+  line-height: 1.5;
+}
+
+/* 06. Redesign Strategy */
+.cs-strategy-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.strategy-card {
+  background: #ffffff;
+  border: 1px solid #000000;
+  border-radius: 10px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.strategy-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.strategy-num {
+  font-size: 12px;
+  font-weight: 800;
+  background: #000000;
+  color: #ffffff;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.strategy-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #000000;
+  line-height: 1.3;
+}
+
+.strategy-desc {
+  font-size: 14px;
+  color: #444444;
+  line-height: 1.5;
+}
+
+/* 07. Figma to Code Pipeline */
+.cs-pipeline-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.pipeline-card {
+  background: #f8f9fa;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 10px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+}
+
+.pipeline-step {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #1c3e24;
+}
+
+.pipeline-label {
+  font-size: 15px;
+  font-weight: 700;
+  color: #000000;
+}
+
+.pipeline-detail {
+  font-size: 13px;
+  color: #666666;
+  line-height: 1.45;
+}
+
+/* 08. Before / After Viewer */
+.cs-tab-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 24px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.cs-tab-btn {
+  background: #f0f2f5;
+  border: 1px solid transparent;
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #444444;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.cs-tab-btn:hover {
+  background: #e2e5e9;
+  color: #000000;
+}
+
+.cs-tab-btn.active {
+  background: #000000;
+  color: #ffffff;
+  border-color: #000000;
+}
+
+.cs-comparison-viewer {
+  background: #fbfbfb;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 14px;
+  padding: 30px;
+  overflow: hidden;
+}
+
+.comparison-columns {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr 1fr;
+  gap: 24px;
+  align-items: center;
+}
+
+.comparison-col {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.col-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.badge-before {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #8f1818;
+  background: rgba(143, 24, 24, 0.08);
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+
+.badge-changes {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #000000;
+  background: #f0f0f0;
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+
+.badge-after {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #1c3e24;
+  background: rgba(28, 62, 36, 0.1);
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+
+.col-img-wrap {
+  width: 100%;
+  aspect-ratio: 9 / 19.5;
+  max-height: 480px;
+  border-radius: 18px;
+  border: 4px solid #1a1a1a;
+  background: #000000;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.col-img-wrap:hover {
+  transform: scale(1.02);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.18);
+}
+
+.comparison-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.changes-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 10px 0;
+}
+
+.change-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #222222;
+}
+
+.change-bullet {
+  font-weight: 800;
+  color: #1c3e24;
+  font-size: 16px;
+  line-height: 1.3;
+}
+
+/* 09. Current State & Milestones */
+.cs-status-banner {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #eef7f0;
+  border: 1px solid rgba(28, 62, 36, 0.2);
+  padding: 8px 18px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+
+.status-indicator-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #27c93f;
+  box-shadow: 0 0 0 3px rgba(39, 201, 63, 0.2);
+  animation: pulseDot 2s infinite ease-in-out;
+}
+
+@keyframes pulseDot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.3); opacity: 0.7; }
+}
+
+.status-indicator-text {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1c3e24;
+  letter-spacing: 0.02em;
+}
+
+.cs-milestones-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 24px;
+  max-width: 600px;
+}
+
+.milestone-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 16px;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 8px;
+}
+
+.milestone-badge {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.milestone-badge.completed {
+  background: rgba(28, 62, 36, 0.1);
+  color: #1c3e24;
+}
+
+.milestone-badge.in-progress {
+  background: rgba(255, 189, 46, 0.2);
+  color: #8f6800;
+}
+
+.milestone-badge.upcoming {
+  background: #f0f0f0;
+  color: #888888;
+}
+
+.milestone-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: #111111;
+}
+
+/* 10. Outcomes & Checklist */
+.outcomes-checklist {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 20px 0;
+}
+
+.outcome-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #111111;
+}
+
+.outcome-check {
+  font-size: 15px;
+  font-weight: 800;
+  color: #1c3e24;
+}
+
+.metrics-note-box {
+  background: #f8f9fa;
+  border-left: 3px solid #888888;
+  padding: 14px 18px;
+  font-size: 13px;
+  color: #666666;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+  border-radius: 0 6px 6px 0;
+}
+
+.note-icon {
+  font-weight: 700;
+}
+
+.reflection-para {
+  font-size: clamp(16px, 1.3vw, 19px);
+  line-height: 1.7;
+}
+
+/* Live Site Link Button in Header */
+.cs-live-site-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #000000;
+  color: #ffffff;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.cs-live-site-link-btn:hover {
+  background: #1c3e24;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.live-link-arrow {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* Tools Card in Role Grid */
+.cs-tools-card {
+  background: #f0f4f1;
+  border-color: rgba(28, 62, 36, 0.15);
+}
+
+/* Editorial Strategy & Paradigm Shift */
+.cs-editorial-banner {
+  background: #0e0e0e;
+  border-left: 4px solid #27c93f;
+}
+
+.cs-shift-box {
+  background: #f3f7f4;
+  border-left: 3px solid #1c3e24;
+  padding: 18px 22px;
+  border-radius: 0 8px 8px 0;
+  margin: 24px 0;
+}
+
+.shift-tag {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #1c3e24;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.shift-text {
+  font-size: 16px;
+  font-weight: 600;
+  color: #0e0e0e;
+  line-height: 1.45;
+  font-style: italic;
+}
+
+.cs-editorial-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-top: 24px;
+}
+
+.editorial-card {
+  background: #fcfcfc;
+  border: 1px solid rgba(0, 0, 0, 0.09);
+  border-radius: 12px;
+  padding: 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.editorial-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+}
+
+.editorial-step {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: #1c3e24;
+}
+
+.editorial-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #0e0e0e;
+  line-height: 1.35;
+}
+
+.editorial-desc {
+  font-size: 14px;
+  color: #444444;
+  line-height: 1.55;
+}
+
+/* Visual Direction Card */
+.cs-visual-dir-card {
+  background: linear-gradient(135deg, #111111 0%, #1a1a1a 100%);
+  color: #ffffff;
+  border-radius: 14px;
+  padding: 36px 40px;
+  margin-top: 16px;
+}
+
+.visual-dir-top {
+  margin-bottom: 18px;
+}
+
+.visual-dir-tag {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #27c93f;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.visual-dir-heading {
+  font-size: clamp(24px, 2.6vw, 36px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  margin-bottom: 6px;
+}
+
+.visual-dir-tagline {
+  font-size: 16px;
+  font-weight: 500;
+  color: #a0a0a0;
+}
+
+.visual-dir-desc {
+  color: #e0e0e0;
+  line-height: 1.65;
+  max-width: 900px;
+}
+
+/* Deliverables Grid */
+.cs-deliverables-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+  margin-top: 20px;
+}
+
+.deliverable-card {
+  background: #f8f9fa;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 10px;
+  padding: 22px;
+}
+
+.deliverable-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #000000;
+  margin-bottom: 14px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  padding-bottom: 8px;
+}
+
+.deliverable-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.deliverable-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 13.5px;
+  color: #444444;
+  line-height: 1.45;
+}
+
+.deliverable-dot {
+  font-size: 10px;
+  color: #1c3e24;
+  margin-top: 2px;
+}
+
+/* Live Website CTA in outcomes */
+.cs-live-website-cta {
+  margin-top: 32px;
+}
+
+.cs-primary-live-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #000000;
+  color: #ffffff;
+  padding: 14px 28px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+}
+
+.cs-primary-live-link:hover {
+  background: #1c3e24;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(28, 62, 36, 0.25);
+}
+
+.cta-arrow {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+@media (max-width: 900px) {
+  .comparison-columns {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .col-img-wrap {
+    max-height: 380px;
+    max-width: 260px;
+    margin: 0 auto;
+  }
+  .cs-insight-banner,
+  .cs-visual-dir-card {
+    padding: 24px 20px;
+  }
 }
 
 /* ==========================================================================
