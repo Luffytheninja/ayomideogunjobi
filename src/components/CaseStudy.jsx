@@ -38,7 +38,7 @@ export default function CaseStudy({ caseStudyId, onBack, onNotify }) {
 
   return (
     <article className="case-study-container" ref={containerRef}>
-      {/* Top Back Navigation Bar */}
+      {/* Top Back Navigation Bar — back button only */}
       <div className="case-study-nav-bar">
         <button 
           type="button" 
@@ -47,36 +47,38 @@ export default function CaseStudy({ caseStudyId, onBack, onNotify }) {
         >
           ← Back to Works
         </button>
-        <div className="cs-nav-badges">
-          {isLivingStudy && (
-            <span className="cs-living-badge">
-              {study.id === 'helpa-services'
-                ? 'Living Case Study · In Progress'
-                : study.id === 'hachi'
-                ? 'Personal Product · Working MVP'
-                : study.id === 'faem'
-                ? 'Live Platform · Afro-Electronic Universe'
-                : study.id === 'opn-wrld'
-                ? 'Live Digital Storefront · Streetwear Label'
-                : study.id === 'champion-custard'
-                ? 'Brand Campaign · Social Media & Art Direction'
-                : study.status || 'Live Project'}
-            </span>
-          )}
-          {study.website && (
-            <a 
-              href={study.website} 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="cs-live-site-link-btn"
-              title={`Visit ${study.name} live`}
-            >
-              <span>Visit Live Site</span>
-              <span className="live-link-arrow">↗</span>
-            </a>
-          )}
-          <span className="cs-category-badge">{study.category}</span>
-        </div>
+      </div>
+
+      {/* Badges row: green tag + live site button + category — sits above the title for clean stacking on mobile */}
+      <div className="cs-nav-badges">
+        {isLivingStudy && (
+          <span className="cs-living-badge">
+            {study.id === 'helpa-services'
+              ? 'Living Case Study · In Progress'
+              : study.id === 'hachi'
+              ? 'Personal Product · Working MVP'
+              : study.id === 'faem'
+              ? 'Live Platform · Afro-Electronic Universe'
+              : study.id === 'opn-wrld'
+              ? 'Live Digital Storefront · Streetwear Label'
+              : study.id === 'champion-custard'
+              ? 'Brand Campaign · Social Media & Art Direction'
+              : study.status || 'Live Project'}
+          </span>
+        )}
+        {study.website && (
+          <a 
+            href={study.website} 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="cs-live-site-link-btn"
+            title={`Visit ${study.name} live`}
+          >
+            <span>Visit Live Site</span>
+            <span className="live-link-arrow">↗</span>
+          </a>
+        )}
+        <span className="cs-category-badge">{study.category}</span>
       </div>
 
       {/* Case Study Header & Title */}
