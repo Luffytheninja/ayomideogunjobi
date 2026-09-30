@@ -933,42 +933,6 @@ export const caseStudies = [
       { src: "/works/hachi/hachi-splash-screen-2.png", type: "image", caption: "Visual Identity & Character Illustration" }
     ]
   },
-  {
-    id: "coldstorm",
-    number: "07",
-    name: "Coldstorm",
-    date: "2024",
-    roles: "Product & Web Designer",
-    clientFeedback: "Production platform launch for business portfolio.",
-    category: "Web Design",
-    tags: ["Web Design", "Responsive Layout", "Creative Development"],
-    paragraphs: [
-      "Coldstorm needed a high-performance web experience that showcases their creative technology capabilities and project work to prospective clients.",
-      "We built a dynamic, responsive site that integrates smooth media playback, interactive project grids, and sleek transitions.",
-      "The result is a professional, high-impact marketing channel that aligns with Coldstorm's innovative positioning."
-    ],
-    media: [
-      { src: "/works/coldstorm/coldstorm-website.mp4", type: "video" }
-    ]
-  },
-  {
-    id: "awaraku",
-    number: "08",
-    name: "Awaraku",
-    date: "2023",
-    roles: "Digital Artist",
-    clientFeedback: "Ongoing digital art exhibition piece and visual studies.",
-    category: "Graphic Design",
-    tags: ["Digital Art", "Abstract Geometry", "Visual Study", "Artwork in Progress"],
-    paragraphs: [
-      "Awaraku is a personal digital art exploration project that studies bold textures, minimalist framing, and abstract digital forms.",
-      "Currently working on a series of visual prints and digital experiments to explore the balance of shape, space, and vibrant color tones.",
-      "This is an ongoing digital art piece and visual experiment, designed to test the limits of modern software rendering for gallery exhibitions."
-    ],
-    media: [
-      { src: "/works/awaraku/Awaraku.png", type: "image" }
-    ]
-  }
 ];
 
 export const experienceTimeline = [

@@ -3295,24 +3295,27 @@ button:focus-visible,
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    overflow-x: hidden;
   }
 
   .contact-container {
     width: 100%;
-    max-width: 360px;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
     margin: auto 0;
     flex: 1;
+    gap: 20px;
   }
 
   .contact-upper {
     align-items: center;
     text-align: center;
     width: 100%;
-    margin-bottom: 24px;
+    margin-bottom: 0;
+    position: static;
+    z-index: auto;
   }
 
   .contact-label {
@@ -3341,13 +3344,17 @@ button:focus-visible,
     justify-content: center;
     align-items: center;
     width: 100%;
-    margin: 20px 0;
+    margin: 0;
+    overflow: hidden;
   }
 
   .contact-hello {
     text-align: center;
-    font-size: clamp(5.2rem, 26vw, 8.5rem);
-    line-height: 0.88;
+    /* Fit within viewport width, allow wrapping as last resort */
+    font-size: clamp(3.8rem, 22vw, 7rem);
+    line-height: 0.92;
+    white-space: normal;
+    word-break: break-word;
   }
 
   /* Case Study Section (Mobile) */
